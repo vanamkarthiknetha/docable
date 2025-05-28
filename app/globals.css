@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ProseMirror h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1em 0 0.5em 0;
+}
+
+.ProseMirror h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1em 0 0.5em 0;
+}
+
+.ProseMirror h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1em 0 0.5em 0;
+}
