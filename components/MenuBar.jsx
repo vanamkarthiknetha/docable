@@ -48,6 +48,19 @@ const MenuBar = ({ editor }) => {
         >
           H3
         </button>
+        <button
+          onClick={() =>
+            editor.chain().focus().setParagraph().run()
+          }
+          className={`px-2 ${
+            editor.isActive("paragraph")
+              ? "bg-white/10 rounded"
+              : ""
+          }`}
+          title="Paragraph"
+        >
+          Text
+        </button>
       </div>
       <div className="flex gap-1">
         <button
