@@ -5,6 +5,8 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import BubbleMenuBar from "./BubbleMenuBar";
 import MenuBar from "./MenuBar";
+import { Markdown } from 'tiptap-markdown'
+import ExportMarkdown from "./ExportMarkdown";
 
 const Editor = () => {
   const editor = useEditor({
@@ -13,6 +15,15 @@ const Editor = () => {
       Placeholder.configure({
         placeholder: "Type something here...",
         emptyEditorClass: "is-editor-empty",
+      }),
+      Markdown.configure({
+        html: true,
+        tightLists: true,
+        bulletListMarker: '-',
+        linkify: false,
+        breaks: false,
+        transformPastedText: false,
+        transformCopiedText: false,
       }),
     ],
     content: "",

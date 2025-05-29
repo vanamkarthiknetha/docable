@@ -15,7 +15,8 @@
     "@tiptap/starter-kit": "^2.12.0",
     "next": "15.3.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tiptap-markdown": "^0.8.10"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
