@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.is-editor-empty:first-child::before {
+    color: rgba(255, 255, 255, 0.2);
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+  .ProseMirror code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
+    font-family: monospace;
+  }
+    .ProseMirror ul {
+    list-style-type: disc;
+    padding-left: 1.5em;
+  }
+
 .ProseMirror h1 {
     font-size: 2rem;
     font-weight: bold;

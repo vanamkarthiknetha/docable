@@ -4,6 +4,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import BubbleMenuBar from "./BubbleMenuBar";
+import MenuBar from "./MenuBar";
 
 const Editor = () => {
   const editor = useEditor({
@@ -23,25 +24,11 @@ const Editor = () => {
   });
 
   return (
-    <>
-      <style jsx global>{`
-        .is-editor-empty:first-child::before {
-          color: rgba(255, 255, 255, 0.2);
-          content: attr(data-placeholder);
-          float: left;
-          height: 0;
-          pointer-events: none;
-        }
-        .ProseMirror code {
-          background-color: rgba(255, 255, 255, 0.1);
-          padding: 0.2em 0.4em;
-          border-radius: 0.25em;
-          font-family: monospace;
-        }
-      `}</style>
+    <div className="w-full">
+      <MenuBar editor={editor} />
       <EditorContent editor={editor} />
-      {editor && <BubbleMenuBar editor={editor} />}
-    </>
+      <BubbleMenuBar editor={editor} />
+    </div>
   );
 };
 

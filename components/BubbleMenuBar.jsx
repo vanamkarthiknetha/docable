@@ -1,6 +1,9 @@
 import { BubbleMenu } from '@tiptap/react'
 
 const BubbleMenuBar = ({ editor }) => {
+  if (!editor) {
+    return null
+  }
 
   return (
       <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
