@@ -6,15 +6,25 @@ import Placeholder from "@tiptap/extension-placeholder";
 import BubbleMenuBar from "./BubbleMenuBar";
 import MenuBar from "./MenuBar";
 import { Markdown } from "tiptap-markdown";
-import SlashCommandMenu from "./SlashCommandMenu";
-import { useState, useRef } from "react";
+
+import {
+  Slash,
+  SlashCmd,
+  SlashCmdProvider,
+  enableKeyboardNavigation,
+} from "@harshtalks/slash-tiptap";
+import { suggestions } from "@/constants";
+
 
 const Editor = () => {
-  const [slashPos, setSlashPos] = useState(null);
-  const menuRef = useRef();
   const editor = useEditor({
     extensions: [
       StarterKit,
+      Slash.configure({
+        suggestion: {
+          items: () => suggestions,
+        },
+      }),
       Placeholder.configure({
         placeholder: "Type / for commands...",
         emptyEditorClass: "is-editor-empty",
@@ -31,19 +41,8 @@ const Editor = () => {
     ],
     content: "",
     editorProps: {
-      handleKeyDown(view, event) {
-        if (event.key === "/") {
-          const { from } = view.state.selection;
-          setTimeout(() => {
-            const coords = view.coordsAtPos(from);
-            setSlashPos({ from, to: from + 1, coords });
-            console.log("slapos",from,from + 1,coords)
-          }, 0);
-          
-        }else
-        setSlashPos(null);
-
-        return false;
+      handleDOMEvents: {
+        keydown: (_, v) => enableKeyboardNavigation(v),
       },
       attributes: {
         class: "p-4 focus:outline-none",
@@ -54,17 +53,31 @@ const Editor = () => {
   return (
     <div className="w-full">
       <MenuBar editor={editor} />
-      <div className="relative">
-      <EditorContent editor={editor} />
+      <SlashCmdProvider>
+        <EditorContent editor={editor} />
+        <SlashCmd.Root editor={editor}>
+          <SlashCmd.Cmd>
+            <SlashCmd.Empty>No commands available</SlashCmd.Empty>
+            <SlashCmd.List className="bg-black rounded-md border border-white/30 p-2">
+              {suggestions.map((item) => {
+                return (
+                  <SlashCmd.Item
+                  className="cursor-pointer hover:bg-white/30 rounded-md p-1"
+                    value={item.title}
+                    onCommand={(val) => {
+                      item.command(val);
+                    }}
+                    key={item.title}
+                  >
+                    <p>{item.title}</p>
+                  </SlashCmd.Item>
+                );
+              })}
+            </SlashCmd.List>
+          </SlashCmd.Cmd>
+        </SlashCmd.Root>
+      </SlashCmdProvider>
       <BubbleMenuBar editor={editor} />
-      {slashPos && (
-        <SlashCommandMenu
-          editor={editor}
-          slashPos={slashPos}
-          setSlashPos={setSlashPos}
-        />
-      )}
-      </div>
     </div>
   );
 };
