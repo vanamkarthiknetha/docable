@@ -26,7 +26,7 @@ const Editor = () => {
         },
       }),
       Placeholder.configure({
-        placeholder: "Type / for commands...",
+        placeholder: "Write, press / for commands...",
         emptyEditorClass: "is-editor-empty",
       }),
       Markdown.configure({
